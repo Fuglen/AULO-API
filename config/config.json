@@ -1,0 +1,32 @@
+{
+    "development": {
+        "username": "admin",
+        "password": "12qw3e",
+        "database": "aulo",
+        "host": "127.0.0.1",
+        "dialect": "mariadb",
+        "dialectOptions": {
+            "timezone": "Etc/GMT+1"
+        }
+    },
+    "test": {
+        "username": "admin",
+        "password": "12qw3e",
+        "database": "aulo",
+        "host": "127.0.0.1",
+        "dialect": "mariadb",
+        "dialectOptions": {
+            "timezone": "Etc/GMT+1"
+        }
+    },
+    "production": {
+        "username": "admin",
+        "password": "12qw3e",
+        "database": "aulo",
+        "host": "127.0.0.1",
+        "dialect": "mariadb",
+        "dialectOptions": {
+            "timezone": "Etc/GMT+1"
+        }
+    }
+}

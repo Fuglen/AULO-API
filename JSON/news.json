@@ -1,0 +1,19 @@
+{
+    "timestamp": "28-10-2019 09:37:20",
+    "news": [
+        {
+            "id": "1",
+            "headline": "Insert clickbait here",
+            "text": "You just got bamboozled!",
+            "author": "Søren Larsen (Lærer)",
+            "dateCreated": "02-10-2019"
+        },
+        {
+            "id": "2",
+            "headline": "Ultra mega super epic clickbait",
+            "text": "Dragon Ball Super is OVER!!",
+            "author": "Akira Toriyama",
+            "dateCreated": "06-09-2018"
+        }
+    ]
+}
