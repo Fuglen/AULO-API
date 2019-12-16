@@ -2,10 +2,12 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+
+// Object Relational Mapping
 const db = require("./models/index");
 const News = db.sequelize.models.news;
 const Schedule = db.sequelize.models.schedule;
-const scheduleJSON = require("./JSON/schedule");
+const Parents = db.sequelize.models.parents;
 const https = require('https');
 const fs = require('fs');
 const port = 8000;
@@ -17,9 +19,10 @@ var options = {
     cert: cert
 };
 
-// Default API path
+// Root API path
 const p = "/api/1/";
 
+// API headers
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
     res.header(
@@ -29,7 +32,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-// support json encoded bodies
+// Support json encoded bodies
 app.use(bodyParser.json());
 // support encoded bodies
 app.use(
@@ -37,34 +40,31 @@ app.use(
         extended: true
     })
 );
-/* 
+
 // API endpoint get user by username
-app.get("/api/user/getuserbyname/:username", function (req, res) {
+app.get(p + "parent/byusername/:username", function (req, res) {
     this.username = req.params.username;
-    return users
+    return Parents
         .findAll({
             where: {
                 username: username
             }
         })
         .then(function (result) {
-            res.send(result);
+            res.json(result);
         });
-}); */
-
-/* 
-app.get("/api/user/getuserbyid/:id", function (req, res) {
-    this.userId = req.params.id;
-    console.log(userId);
 });
- */
+
+// Test post endpoint
 app.post(p + "post/test", function (req, res) {
     // var data = JSON.stringify(req.body);
-    console.log(req.body.text);      // your JSON 
+    var data = req;
+    console.log(req.body.username);      // your JSON 
     console.log(req.ip);      // your JSON
-    res.send();    // echo the result back
+    res.json(data.body)    // echo the result back
 });
 
+// Create news
 app.post(p + "news/create", function (req, res) {
     var data = req.body;
     console.log(data);
@@ -83,6 +83,7 @@ app.post(p + "news/create", function (req, res) {
     });
 });
 
+// Get all news
 app.get(p + "news/all", function (req, res) {
     return News.findAll().then(function (result) {
         res.send(result);
@@ -95,9 +96,21 @@ app.get(p + "news/all/recent", function (req, res) {
     });
 });
 
-app.get(p + "schedule/:team/:class", function (req, res) {
-    return Schedule.findAll().then(function (result) {
-        res.send(JSON.stringify(result));
+app.get(p + "schedule/:team", function (req, res) {
+    return Schedule.findAll({
+        attributes: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
+        where: { team: req.params.team }
+    }).then(function (result) {
+        var data = result[0].dataValues;
+        console.log(data.monday);
+        var days = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+        var result = "";
+
+        for (days in data) {
+            result = result + data[days].replace(/[1234567:"" ]/g, "") + ":";
+        }
+
+        res.send(result);
     });
 });
 
