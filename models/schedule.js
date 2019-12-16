@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
-            fromDate: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            toDate: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
+            /*             fromDate: {
+                            type: Sequelize.STRING,
+                            allowNull: false
+                        },
+                        toDate: {
+                            type: Sequelize.STRING,
+                            allowNull: false
+                        }, */
             monday: {
                 type: Sequelize.TEXT,
                 allowNull: false
